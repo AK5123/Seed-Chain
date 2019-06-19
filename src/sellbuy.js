@@ -19,7 +19,7 @@ class SellBuy extends Component {
       <View style={styles.container}>
         
 
-        <TouchableHighlight style={[styles.buttonContainer, styles.loginButton]} onPress={()=>this.props.navigation.navigate('Sell',userdata)}>
+        <TouchableHighlight style={[styles.buttonContainer, styles.loginButton]} onPress={()=>this.props.navigation.navigate('Sellp',userdata)}>
           <Text style={styles.loginText}>Seller</Text>
         </TouchableHighlight>
         <TouchableHighlight style={[styles.buttonContainer, styles.loginButton]} onPress={()=>this.props.navigation.navigate('Buy',userdata)}>

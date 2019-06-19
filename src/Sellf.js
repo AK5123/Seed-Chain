@@ -16,66 +16,19 @@ import axios from 'axios'
 import Card from './assets/card'
 import Header from './header'
 import QRCodeScanner from 'react-native-qrcode-scanner';
-// import { createBottomTabNavigator, createAppContainer } from 'react-navigation'
-
-// class Name extends Component{
-//     render(){
-//         console.log(this.props.navigation.dangerouslyGetParent().getParam('userdata'))
-//         return(
-//         <Text>Hiii</Text>
-//         )
-//     }
-// }
-
-// class Details extends Component{
-//     render(){
-//         return(
-//         <Text>Byee</Text>
-//         )
-//     }
-// }
-
-// const AppTabNavigator = createBottomTabNavigator({
-//     Name,
-//     Details
-//   },
-//   {
-//     defaultNavigationOptions: ({ navigation }) => ({
-//       tabBarIcon: ({ focused, horizontal, tintColor }) => {
-//         const { routeName } = navigation.state;
-//         if (routeName === 'Name') {
-//           return (
-//             <Image
-//               source={ require('./assets/home.png') }
-//               style={{ width: 20, height: 20, }} />
-//           );
-//         } else {
-//           return (
-//             <Image
-//               source={ require('./assets/settings.png') }
-//               style={{ width: 20, height: 20 }} />
-//           );
-//         }
-//       },
-//     }),
-//     tabBarOptions: {
-//       activeTintColor: '#FF6F00',
-//       inactiveTintColor: '#263238',
-//     },
-//   }
-// )
-
-// const AppContainer = createAppContainer(AppTabNavigator)
+import ButtonComponent, { CircleButton, RoundButton, RectangleButton } from 'react-native-button-component';
 
 class Sell extends Component{
     state = {
         show: true,
-        data: false
+        button: false,
+        count: 0,
+        resp: false,
+        items: []
     }
 
     onSuccess = (e) => {
-        
-        // this.scanner.reactivate();
+
         axios.post('http://192.168.0.104:3000/login', {
         email: 'sfs',
         password: 'affgg'
@@ -85,21 +38,23 @@ class Sell extends Component{
         console.log('example'+response.data.lname);
         return (response.data)
       }).then( (data) => {
-        this.setState({show: false,data})
+        let item = this.state.items.concat(data)  
+        this.setState({button: true, items: item, resp: false})
+        
       })
       .catch(function (error) {
         this.scanner.reactivate();
         Alert.alert("Alert", "Not verified ");
       });
         
-    
+        
       }
 
     renderQr(){
         return(
            <View style={{alignItems:'center'}}>   
             <Text style={styles.centerText}>
-                Scan <Text style={styles.textBold}>QR_code</Text> of the Buyer.
+                Scan <Text style={styles.textBold}>Products QR_code</Text> .
             </Text>
             <Text style={styles.centerText}>
                  <Text style={styles.textBold}>       </Text> 
@@ -123,55 +78,81 @@ class Sell extends Component{
             //   </TouchableOpacity>
             // }
           />
+          <Text style={styles.centerText}>
+                 <Text style={styles.textBold}>       </Text> 
+            </Text>
         </View>  
         )
     }
 
-    renderCard(data){
-         return(
-            <Card>
-            <Text >Buyer Details:</Text>
-            <Text >{'FName :'+ data.fname}</Text>
-            <View style={styles.img}>
-            <Image 
-            style={{ height: 150, width: 150}}
-            source={{ uri: 'https://images-na.ssl-images-amazon.com/images/I/61McsadO1OL.jpg'}}/>
-            </View>
-            </Card>
-         )
-    }
+   renderbuttonpart1(){
+       return(
 
+        <RoundButton
+        text="Next"
+        type="primary"
+        shape="rectangle"
+        backgroundColors={['#4DC7A4', '#66D37A']}
+        gradientStart={{ x: 0.5, y: 1 }}
+        gradientEnd={{ x: 1, y: 1 }}
+        height={60}
+        width={300}
+        onPress={() => {
+            this.setState({button: false,resp: true, count: this.state.count +1 })
+        }}/>
+        
+    
+    )
+   }
+   renderbuttonpart2(){
+     return(
+        <Text style={styles.centerText}>
+        </Text>  
+     )   
+   }
+     
+   
     render(){
-        console.log(this.state.data)
+        console.log(this.state.count,this.state.items)
+        // const userdata = this.props.navigation.state.params
+        if(this.state.resp)
+          this.scanner.reactivate()
         return(
          <View style={{flex: 1}}>
-            <Header text=' Profile'/>
+            <Header text=' Details'/>
             <ScrollView>
-                <Card>
-                <Text >User Details:</Text>
-                <Text >Name : xysysbsh</Text>
-                <View style={styles.img}>
-                <Image 
-                style={{ height: 150, width: 150}}
-                source={{ uri: 'https://images-na.ssl-images-amazon.com/images/I/61McsadO1OL.jpg'}}/>
-                </View>
-                </Card>
-                {(this.state.show)?this.renderQr() : null}
-                {(this.state.data)?this.renderCard(this.state.data) : null}
+                {this.renderQr()}
+                <View style={styles.img}> 
+                {(this.state.button)? this.renderbuttonpart1(): null}
+                {(this.state.button)? this.renderbuttonpart2(): null}
+                <RoundButton
+                    text={(this.state.count!=0)? 'DONE('+this.state.count+'items)' : 'DONE'}
+                    type="primary"
+                    shape="rectangle"
+                    backgroundColors={['#4DC7A4', '#66D37A']}
+                    gradientStart={{ x: 0.5, y: 1 }}
+                    gradientEnd={{ x: 1, y: 1 }}
+                    height={60}
+                    width={300}
+                    onPress={() => {}}/>
+                <Text style={styles.centerText}>
+                 <Text style={styles.textBold}>       </Text> 
+                </Text>    
+              </View>
             </ScrollView> 
 
             <View style = {styles.navbox}>
-              <TouchableOpacity style={styles.icon1} onPress={()=> console.log('hi')}>
+              <TouchableOpacity style={styles.icon2} onPress={()=> console.log('hi')}>
                 <Image
                     source={ require('./assets/home.png') }
                     style={{ width: 25, height: 25,paddingHorizontal: 5, }} />
                 <Text>Profile</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.icon2} onPress={()=> console.log('hi')}>
+              <TouchableOpacity style={styles.icon1} onPress={()=> console.log('hi')}>
                 <Image
                     source={ require('./assets/settings.png') }
                     style={{ width: 25, height: 25,paddingHorizontal: 5, }} />
-                <Text>Profile</Text>
+                <Text>Products</Text>
               </TouchableOpacity>
             </View>
          </View>

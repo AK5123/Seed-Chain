@@ -12,7 +12,8 @@ import Qr from './src/qrcode'
 import Qrgen from './src/qrgen'
 import Login from './src/home'
 import SellBuy from './src/sellbuy'
-import Sell from './src/Sell'
+import Sellp from './src/Sellp'
+import Sellf from './src/Sellf'
 import Buy from './src/Buy'
 import {createSwitchNavigator, createAppContainer} from 'react-navigation'
 
@@ -20,7 +21,8 @@ import {createSwitchNavigator, createAppContainer} from 'react-navigation'
 // const AppSwitchNavigator = createSwitchNavigator({
 //     Login: {screen: Login },
 //     SB : {screen: SellBuy},
-//     Sell: {screen: Sell},
+//     Sellp: {screen: Sellp},
+//     Sellf:{screen: Sellf},
 //     Buy : {screen: Buy}
 // });
 
@@ -29,7 +31,7 @@ import {createSwitchNavigator, createAppContainer} from 'react-navigation'
 
 const App = () =>{
     return(
-        <Sell />
+        <Sellf />
         //  <AppContainer />
         // {/* <View style={{ borderColor:'black', borderWidth: 3,justifyContent:'center',alignItems:'center', height:'100%'}}>    
         // <View style={{borderColor:'red', borderWidth: 3,width: '80%'}}>

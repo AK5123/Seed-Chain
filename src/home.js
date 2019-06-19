@@ -24,21 +24,21 @@ export default class LoginView extends Component {
   onClickListener = (email,pass) => {
           
      
-    this.props.navigation.navigate('SB',{name : 'abc'})
-    // axios.post('http://192.168.0.104:3000/login', {
-    //     email: email,
-    //     password: pass
-    //   })
-    //   .then(function (response) {
-    //     console.log('example'+response.data.fname);
-    //     console.log('example'+response.data.lname);
-    //     return (response.data)
-    //   }).then( (data) => {
-    //     this.props.navigation.navigate('SB',data)
-    //   })
-    //   .catch(function (error) {
-    //     Alert.alert("Alert", "Not verified ");
-    //   });
+    // this.props.navigation.navigate('SB',{name : 'abc'})
+    axios.post('http://192.168.0.104:3000/login', {
+        email: email,
+        password: pass
+      })
+      .then(function (response) {
+        console.log('example'+response.data.fname);
+        console.log('example'+response.data.lname);
+        return (response.data)
+      }).then( (data) => {
+        this.props.navigation.navigate('SB',data)
+      })
+      .catch(function (error) {
+        Alert.alert("Alert", "Not verified ");
+      });
 
   }
 
