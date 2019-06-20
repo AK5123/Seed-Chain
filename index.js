@@ -14,25 +14,28 @@ import Login from './src/home'
 import SellBuy from './src/sellbuy'
 import Sellp from './src/Sellp'
 import Sellf from './src/Sellf'
-import Buy from './src/Buy'
+import Buyp from './src/Buyp'
+import Buyf from './src/Buyf'
 import {createSwitchNavigator, createAppContainer} from 'react-navigation'
 
 
-// const AppSwitchNavigator = createSwitchNavigator({
-//     Login: {screen: Login },
-//     SB : {screen: SellBuy},
-//     Sellp: {screen: Sellp},
-//     Sellf:{screen: Sellf},
-//     Buy : {screen: Buy}
-// });
+const AppSwitchNavigator = createSwitchNavigator({
+    Login: {screen: Login },
+    SB : {screen: SellBuy},
+    Sellp: {screen: Sellp},
+    Sellf:{screen: Sellf},
+    Buyp : {screen: Buyp},
+    Buyf : {screen: Buyf}
+});
 
-// const AppContainer = createAppContainer(AppSwitchNavigator)
+const AppContainer = createAppContainer(AppSwitchNavigator)
 
 
 const App = () =>{
     return(
-        <Sellf />
-        //  <AppContainer />
+        // <Sellf />
+         <AppContainer />
+        // <Buyf />
         // {/* <View style={{ borderColor:'black', borderWidth: 3,justifyContent:'center',alignItems:'center', height:'100%'}}>    
         // <View style={{borderColor:'red', borderWidth: 3,width: '80%'}}>
         // <Text>hiii</Text>

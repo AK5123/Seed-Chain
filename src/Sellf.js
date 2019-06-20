@@ -24,6 +24,7 @@ class Sell extends Component{
         button: false,
         count: 0,
         resp: false,
+        dispdetail: false,
         items: []
     }
 
@@ -110,10 +111,25 @@ class Sell extends Component{
         </Text>  
      )   
    }
-     
+     renderCard(){
+        return this.state.items.map( data => {
+              console.log(data)
+              return(
+                <Card key={data.fname}>
+                <Text >Buyer Details:</Text>
+                <Text >{'FName :'+ data.fname}</Text>
+                <View style={styles.img}>
+                <Image 
+                style={{ height: 150, width: 150}}
+                source={{ uri: 'https://images-na.ssl-images-amazon.com/images/I/61McsadO1OL.jpg'}}/>
+                </View>
+                </Card>
+              )
+         })
+     }
    
     render(){
-        console.log(this.state.count,this.state.items)
+        console.log(this.state.count,this.state.items,this.state.dispdetail)
         // const userdata = this.props.navigation.state.params
         if(this.state.resp)
           this.scanner.reactivate()
@@ -121,24 +137,28 @@ class Sell extends Component{
          <View style={{flex: 1}}>
             <Header text=' Details'/>
             <ScrollView>
-                {this.renderQr()}
-                <View style={styles.img}> 
-                {(this.state.button)? this.renderbuttonpart1(): null}
-                {(this.state.button)? this.renderbuttonpart2(): null}
-                <RoundButton
-                    text={(this.state.count!=0)? 'DONE('+this.state.count+'items)' : 'DONE'}
-                    type="primary"
-                    shape="rectangle"
-                    backgroundColors={['#4DC7A4', '#66D37A']}
-                    gradientStart={{ x: 0.5, y: 1 }}
-                    gradientEnd={{ x: 1, y: 1 }}
-                    height={60}
-                    width={300}
-                    onPress={() => {}}/>
-                <Text style={styles.centerText}>
-                 <Text style={styles.textBold}>       </Text> 
-                </Text>    
-              </View>
+                { (this.state.dispdetail)? null : this.renderQr()}
+           
+                { (this.state.dispdetail)? this.renderCard() : 
+                    <View style={styles.img}> 
+                        {(this.state.button)? this.renderbuttonpart1(): null}
+                        {(this.state.button)? this.renderbuttonpart2(): null}
+                        <RoundButton
+                            text={(this.state.count!=0)? 'DONE('+this.state.count+'items)' : 'DONE'}
+                            type="primary"
+                            shape="rectangle"
+                            backgroundColors={['#4DC7A4', '#66D37A']}
+                            gradientStart={{ x: 0.5, y: 1 }}
+                            gradientEnd={{ x: 1, y: 1 }}
+                            height={60}
+                            width={300}
+                            onPress={() => this.setState({dispdetail: true})}/>
+                        <Text style={styles.centerText}>
+                        <Text style={styles.textBold}>       </Text> 
+                        </Text>    
+                    </View>
+                }
+                
             </ScrollView> 
 
             <View style = {styles.navbox}>

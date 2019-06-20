@@ -16,56 +16,6 @@ import axios from 'axios'
 import Card from './assets/card'
 import Header from './header'
 import QRCodeScanner from 'react-native-qrcode-scanner';
-// import { createBottomTabNavigator, createAppContainer } from 'react-navigation'
-
-// class Name extends Component{
-//     render(){
-//         console.log(this.props.navigation.dangerouslyGetParent().getParam('userdata'))
-//         return(
-//         <Text>Hiii</Text>
-//         )
-//     }
-// }
-
-// class Details extends Component{
-//     render(){
-//         return(
-//         <Text>Byee</Text>
-//         )
-//     }
-// }
-
-// const AppTabNavigator = createBottomTabNavigator({
-//     Name,
-//     Details
-//   },
-//   {
-//     defaultNavigationOptions: ({ navigation }) => ({
-//       tabBarIcon: ({ focused, horizontal, tintColor }) => {
-//         const { routeName } = navigation.state;
-//         if (routeName === 'Name') {
-//           return (
-//             <Image
-//               source={ require('./assets/home.png') }
-//               style={{ width: 20, height: 20, }} />
-//           );
-//         } else {
-//           return (
-//             <Image
-//               source={ require('./assets/settings.png') }
-//               style={{ width: 20, height: 20 }} />
-//           );
-//         }
-//       },
-//     }),
-//     tabBarOptions: {
-//       activeTintColor: '#FF6F00',
-//       inactiveTintColor: '#263238',
-//     },
-//   }
-// )
-
-// const AppContainer = createAppContainer(AppTabNavigator)
 
 class Sell extends Component{
     state = {
@@ -101,7 +51,7 @@ class Sell extends Component{
         return(
            <View style={{alignItems:'center'}}>   
             <Text style={styles.centerText}>
-                Scan <Text style={styles.textBold}>QR_code</Text> of the Buyer.
+                Scan <Text style={styles.textBold}>QR_code</Text> of the Seller.
             </Text>
             <Text style={styles.centerText}>
                  <Text style={styles.textBold}>       </Text> 
@@ -146,14 +96,15 @@ class Sell extends Component{
      
     renderPay(data){
         return(
-            <TouchableOpacity style={{position: 'relative',justifyContent:'center',alignItems:'center'}} onPress={()=> this.props.navigation.navigate('Sellf',data)}>
-                <Text>Proceed To Sell</Text>
+            <TouchableOpacity style={{position: 'relative',justifyContent:'center',alignItems:'center'}} onPress={()=> this.props.navigation.navigate('Buyf',data)}>
+                <Text>Verify Product</Text>
             </TouchableOpacity>
         )
     }
     render(){
         console.log(this.state.data)
-        const userdata = this.props.navigation.state.params
+        // const userdata = this.props.navigation.state.params
+        const userdata = {fname:'asf',lname:'sdfsf'}
         return(
          <View style={{flex: 1}}>
             <Header text=' Profile'/>
@@ -179,7 +130,7 @@ class Sell extends Component{
                     style={{ width: 25, height: 25,paddingHorizontal: 5, }} />
                 <Text>Profile</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.icon2} onPress={()=> this.props.navigation.navigate('Sellf',this.state.data)}>
+              <TouchableOpacity style={styles.icon2} onPress={()=> this.props.navigation.navigate('Buyf',this.state.data)}>
                 <Image
                     source={ require('./assets/settings.png') }
                     style={{ width: 25, height: 25,paddingHorizontal: 5, }} />
