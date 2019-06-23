@@ -11,10 +11,13 @@ const App = (props) =>{
 
 const styles= {
     textStyle:{
-        fontSize :20
+        fontSize :20,
+        color: 'white',
+        fontFamily: 'leaguespartan',
+        letterSpacing: 1.5
     },
     viewStyle:{
-        backgroundColor: '#F8F8F8',
+        backgroundColor: '#7BCA86',
         // borderWidth: 2,
         // borderColor: '#98989C',
         height: 60,

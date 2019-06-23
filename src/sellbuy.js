@@ -6,6 +6,7 @@ import {
   TextInput,
   Button,
   TouchableHighlight,
+  TouchableOpacity,
   Image,
   Alert
 } from 'react-native';
@@ -19,12 +20,13 @@ class SellBuy extends Component {
       <View style={styles.container}>
         
 
-        <TouchableHighlight style={[styles.buttonContainer, styles.loginButton]} onPress={()=>this.props.navigation.navigate('Sellp',userdata)}>
-          <Text style={styles.loginText}>Seller</Text>
-        </TouchableHighlight>
-        <TouchableHighlight style={[styles.buttonContainer, styles.loginButton]} onPress={()=>this.props.navigation.navigate('Buyp',userdata)}>
-          <Text style={styles.loginText}>Buyer</Text>
-        </TouchableHighlight>
+        <TouchableOpacity style={[styles.buttonContainer, styles.loginButton]} onPress={()=>this.props.navigation.navigate('Sellp',userdata)}>
+          <Text style={styles.loginText}>SELL</Text>
+        </TouchableOpacity>
+        <View style={styles.divider} />
+        <TouchableOpacity style={[styles.buttonContainer, styles.loginButton]} onPress={()=>this.props.navigation.navigate('Buyf',userdata)}>
+          <Text style={styles.loginText}>BUY</Text>
+        </TouchableOpacity>
 
        
       </View>
@@ -37,7 +39,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'white',
+    backgroundColor: '#7BCA86',
   },
   buttonContainer: {
     height:45,
@@ -45,14 +47,27 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom:20,
-    width:250,
-    borderRadius:30,
+    width:200,
+    borderRadius:4,
+    shadowOffset: {width:0,height:2},
+    shadowOpacity: 0.6,
+    shadowRadius: 2,
+    elevation:5,
   },
   loginButton: {
-    backgroundColor: "#00b5ec",
+    backgroundColor: "white",
   },
   loginText: {
-    color: 'white',
+    fontSize: 20,
+    color: 'black',
+    fontFamily: 'leaguespartan'
+  },
+  divider:{
+    height: 3,
+    width: 150,
+    borderBottomWidth: 2,
+    borderColor: 'white',
+    marginBottom: 20
   }
 });
  

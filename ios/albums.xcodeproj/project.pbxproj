@@ -45,6 +45,9 @@
 		5B9E57DD39C7471CA6DC02AB /* libRNGestureHandler-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9406D620429F4133812FA924 /* libRNGestureHandler-tvOS.a */; };
 		05A9B08958664FD6B0186E60 /* libRNSpinkit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 30B2DEE43CA64975A480A46B /* libRNSpinkit.a */; };
 		45231761759E44219C985ACC /* libBVLinearGradient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5747D75E7DF44B5F8E08527C /* libBVLinearGradient.a */; };
+		D49E25816F4448578C7907FE /* SEGOEUI.TTF in Resources */ = {isa = PBXBuildFile; fileRef = 0339D290F4A840D2B1F22051 /* SEGOEUI.TTF */; };
+		1B7BD89D7989486389FB843B /* SEGOEUI.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 87B181FE2BEA4E9EB50AAAD3 /* SEGOEUI.ttf */; };
+		8DBCFC49C80C4131BBF18537 /* leaguespartan.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1BF52796FE044C7684943133 /* leaguespartan.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -363,6 +366,9 @@
 		30B2DEE43CA64975A480A46B /* libRNSpinkit.a */ = {isa = PBXFileReference; name = "libRNSpinkit.a"; path = "libRNSpinkit.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 		D86E031D4BA34CD9AABA4672 /* BVLinearGradient.xcodeproj */ = {isa = PBXFileReference; name = "BVLinearGradient.xcodeproj"; path = "../node_modules/react-native-linear-gradient/BVLinearGradient.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		5747D75E7DF44B5F8E08527C /* libBVLinearGradient.a */ = {isa = PBXFileReference; name = "libBVLinearGradient.a"; path = "libBVLinearGradient.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		0339D290F4A840D2B1F22051 /* SEGOEUI.TTF */ = {isa = PBXFileReference; name = "SEGOEUI.TTF"; path = "../assets/fonts/SEGOEUI.TTF"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		87B181FE2BEA4E9EB50AAAD3 /* SEGOEUI.ttf */ = {isa = PBXFileReference; name = "SEGOEUI.ttf"; path = "../assets/fonts/SEGOEUI.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		1BF52796FE044C7684943133 /* leaguespartan.ttf */ = {isa = PBXFileReference; name = "leaguespartan.ttf"; path = "../assets/fonts/leaguespartan.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -612,6 +618,7 @@
 				00E356EF1AD99517003FC87E /* albumsTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
+				A3A47871696C494F85DE4B9C /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -637,6 +644,17 @@
 			);
 			name = Products;
 			sourceTree = "<group>";
+		};
+		A3A47871696C494F85DE4B9C /* Resources */ = {
+			isa = "PBXGroup";
+			children = (
+				0339D290F4A840D2B1F22051 /* SEGOEUI.TTF */,
+				87B181FE2BEA4E9EB50AAAD3 /* SEGOEUI.ttf */,
+				1BF52796FE044C7684943133 /* leaguespartan.ttf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+			path = "";
 		};
 /* End PBXGroup section */
 
@@ -1084,6 +1102,9 @@
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
+				D49E25816F4448578C7907FE /* SEGOEUI.TTF in Resources */,
+				1B7BD89D7989486389FB843B /* SEGOEUI.ttf in Resources */,
+				8DBCFC49C80C4131BBF18537 /* leaguespartan.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

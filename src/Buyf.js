@@ -19,16 +19,7 @@ import ButtonComponent, { CircleButton, RoundButton, RectangleButton } from 'rea
 
 class App extends Component {
         state ={
-            data: [
-                {time: '09:00', title: 'Event 1', description: 'Event 1 Description'},
-                {time: '10:45', title: 'Event 2', description: 'Event 2 Description'},
-                {time: '12:00', title: 'Event 3', description: 'Event 3 Description'},
-                {time: '14:00', title: 'Event 4', description: 'Event 4 Description'},
-                {time: '16:30', title: 'Event 5', description: 'Event 5 Description'},
-                {time: '16:30', title: 'Event 5', description: 'Event 5 Description'},
-                {time: '16:30', title: 'Event 5', description: 'Event 5 Description'},
-                {time: '16:30', title: 'Event 5', description: 'Event 5 Description'}
-            ],
+            data: [],
             istimeline: false
         }
 
@@ -39,7 +30,7 @@ class App extends Component {
                         data={this.state.data}
                         circleSize={20}
                         circleColor='rgb(45,156,219)'
-                        lineColor='rgb(45,156,219)'
+                        // lineColor='rgb(45,156,219)'
                         timeContainerStyle={{minWidth:52, marginTop: -2}}
                         timeStyle={{textAlign: 'center', backgroundColor:'#ff9797', color:'white', padding:5, borderRadius:13}}
                         descriptionStyle={{color:'gray'}}
@@ -54,26 +45,34 @@ class App extends Component {
 
         } 
         
-        onSuccess = (e) => {
+        onSuccess = async (e) => {
 
-            axios.post('http://192.168.0.104:3000/login', {
-            email: 'sfs',
-            password: 'affgg'
-          })
-          .then(function (response) {
-            console.log('example'+response.data.fname);
-            console.log('example'+response.data.lname);
-            // this.scanner.reactivate();
-            return (response.data)
-          }).then( (data) => { 
-            this.setState({istimeline: true})
-            
-          })
-          .catch(function (error) {
-            this.scanner.reactivate();
-            Alert.alert("Alert", "Not verified ");
-          });
-            
+           let rs= await axios.get('http://192.168.137.97:3000/api/Item/'+e.data);
+           let i=0;
+           let arr=[];
+           rs=rs.data;
+            for(seller of rs.sellers){
+              let sellerinfo=await axios.get('http://192.168.137.97:3000/api/Seller/'+seller.slice(seller.indexOf("#")+1,seller.length));
+              let name=sellerinfo.data.name
+              // let time=rs.transactTime[i]
+              var lineColor ='rgb(45,156,219)'
+              
+                
+              // console.log(rs)
+              let time = (new Date(rs.assetMeta.transactTime[i])).toLocaleTimeString()
+              // assetMeta.name;
+               let description = new Date(rs.assetMeta.transactTime[i]).toString().slice(4,15)
+              // seller.assetMeta.name
+              let title = name
+                console.log(rs.assetMeta.isGrouped,rs.sellers.length)
+              if(rs.assetMeta.isGrouped && i==(rs.sellers.length-1)){
+                lineColor = '#F00';
+                description = description + ' (ERROR Detected)Tampered Package '
+              }
+              arr = arr.concat({time,title,description,lineColor})
+              i+=1
+            }
+            this.setState({data:arr,istimeline: true})
             
           }
 
@@ -81,7 +80,7 @@ class App extends Component {
             return(
                <View style={{alignItems:'center'}}>   
                 <Text style={styles.centerText}>
-                    Scan <Text style={styles.textBold}>Products QR_code</Text> for Details
+                     <Text style={styles.textBold}>Scan Products QR_code for Details     </Text> 
                 </Text>
                 <Text style={styles.centerText}>
                      <Text style={styles.textBold}>       </Text> 
@@ -142,20 +141,20 @@ class App extends Component {
                        {(this.state.istimeline)? this.renderTimeline() : this.renderQr()}
                        {(this.state.istimeline)? this.renderButton(): null}
                 </ScrollView>
-                <View style = {styles.navbox}>
+                {/* <View style = {styles.navbox}>
                     <TouchableOpacity style={styles.icon2} onPress={()=> console.log('hi')}>
                         <Image
                             source={ require('./assets/home.png') }
                             style={{ width: 25, height: 25,paddingHorizontal: 5, }} />
-                        <Text>Profile</Text>
+                        <Text style={styles.txt}>Profile</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.icon1} onPress={()=> console.log('hi')}>
                         <Image
                             source={ require('./assets/settings.png') }
                             style={{ width: 25, height: 25,paddingHorizontal: 5, }} />
-                        <Text>Products</Text>
+                        <Text style={styles.txt}>Details</Text>
                     </TouchableOpacity>
-                </View>
+                </View> */}
          
                 
             </View>
@@ -177,18 +176,23 @@ const styles ={
       marginBottom: 20
     },
     navbox: {
-        borderTopWidth: 3,
-        position: 'absolute',
-        bottom:0,
-        left:0,
-        height: 50,
-        backgroundColor: "#FFFFFF",
-        width:Dimensions.get('window').width,
-        flexDirection: 'row',
-        justifyContent: 'space-around'
+      borderColor: '#7BCA86',
+      position: 'absolute',
+      bottom:0,
+      left:0,
+      height: 50,
+      backgroundColor: "#7BCA86",
+      width:Dimensions.get('window').width,
+      flexDirection: 'row',
+      justifyContent: 'space-around',
+      shadowColor:'#000',
+      shadowOffset: {width: 0, height: 3},
+      shadowOpacity: 0.8,
+      elevation: 8,
     },
     txt:{
-        height: 50,
+      color: 'white',
+      fontFamily: 'SEGOEUI'
 
     },
     icon1:{

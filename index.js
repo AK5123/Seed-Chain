@@ -33,7 +33,12 @@ const AppContainer = createAppContainer(AppSwitchNavigator)
 
 const App = () =>{
     return(
-        // <Sellf />
+        // <View style={{ height: 20,width: 40,left:0, bottom:0, position: 'absolute',borderWidth: 1, borderColor:'green'}}>
+        //         <Text>hii</Text>
+        // </View>
+        // <Login />
+        // <SellBuy />
+        // <Sellp />
          <AppContainer />
         // <Buyf />
         // {/* <View style={{ borderColor:'black', borderWidth: 3,justifyContent:'center',alignItems:'center', height:'100%'}}>    

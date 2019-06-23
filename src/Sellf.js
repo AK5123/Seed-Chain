@@ -30,20 +30,18 @@ class Sell extends Component{
 
     onSuccess = (e) => {
 
-        axios.post('http://192.168.0.104:3000/login', {
-        email: 'sfs',
-        password: 'affgg'
+        const ubdata = this.props.navigation.state.params
+        console.log(ubdata);
+        axios.post('http://192.168.137.97:5000/product', {
+        seller: ubdata.seller,
+        product: e.data
       })
-      .then(function (response) {
-        console.log('example'+response.data.fname);
-        console.log('example'+response.data.lname);
-        return (response.data)
-      }).then( (data) => {
+      .then( (data) => {
         let item = this.state.items.concat(data)  
         this.setState({button: true, items: item, resp: false})
         
       })
-      .catch(function (error) {
+      .catch( (error)=> {
         this.scanner.reactivate();
         Alert.alert("Alert", "Not verified ");
       });
@@ -55,10 +53,10 @@ class Sell extends Component{
         return(
            <View style={{alignItems:'center'}}>   
             <Text style={styles.centerText}>
-                Scan <Text style={styles.textBold}>Products QR_code</Text> .
+                Scan <Text style={styles.textBold}>Products QR Code        </Text> 
             </Text>
             <Text style={styles.centerText}>
-                 <Text style={styles.textBold}>       </Text> 
+                 {/* <Text style={styles.textBold}>       </Text>  */}
             </Text>
             <QRCodeScanner
             ref={(node) => { this.scanner = node }}
@@ -89,7 +87,7 @@ class Sell extends Component{
    renderbuttonpart1(){
        return(
 
-        <RoundButton
+        <RectangleButton
         text="Next"
         type="primary"
         shape="rectangle"
@@ -115,27 +113,24 @@ class Sell extends Component{
         return this.state.items.map( data => {
               console.log(data)
               return(
-                <Card key={data.fname}>
-                <Text >Buyer Details:</Text>
-                <Text >{'FName :'+ data.fname}</Text>
-                <View style={styles.img}>
-                <Image 
-                style={{ height: 150, width: 150}}
-                source={{ uri: 'https://images-na.ssl-images-amazon.com/images/I/61McsadO1OL.jpg'}}/>
+                <View style={styles.card} key={data.data.assetMeta.name}> 
+                  <View style={{backgroundColor: (data.data.isVerified)?"green":"red" ,flexDirection:'row',justifyContent:'space-between',height:40}} >
+                    <Text style={styles.tpt} >{data.data.assetMeta.name +'('+ data.data.assetMeta.weight+'g)'}</Text>
+                    <Text style={styles.tpt} >{'Rs.'+data.data.assetMeta.price}</Text>
                 </View>
-                </Card>
+                </View>
+                
               )
          })
      }
    
     render(){
         console.log(this.state.count,this.state.items,this.state.dispdetail)
-        // const userdata = this.props.navigation.state.params
         if(this.state.resp)
           this.scanner.reactivate()
         return(
          <View style={{flex: 1}}>
-            <Header text=' Details'/>
+            <Header text=' Products'/>
             <ScrollView>
                 { (this.state.dispdetail)? null : this.renderQr()}
            
@@ -143,7 +138,7 @@ class Sell extends Component{
                     <View style={styles.img}> 
                         {(this.state.button)? this.renderbuttonpart1(): null}
                         {(this.state.button)? this.renderbuttonpart2(): null}
-                        <RoundButton
+                        <RectangleButton
                             text={(this.state.count!=0)? 'DONE('+this.state.count+'items)' : 'DONE'}
                             type="primary"
                             shape="rectangle"
@@ -160,19 +155,22 @@ class Sell extends Component{
                 }
                 
             </ScrollView> 
+            {/* <View style={styles.navbox1}>
+            <Text>hii</Text>
+            </View> */}
 
-            <View style = {styles.navbox}>
+            <View style={styles.navbox}>
               <TouchableOpacity style={styles.icon2} onPress={()=> console.log('hi')}>
                 <Image
                     source={ require('./assets/home.png') }
                     style={{ width: 25, height: 25,paddingHorizontal: 5, }} />
-                <Text>Profile</Text>
+                <Text style={styles.txt}>Profile</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.icon1} onPress={()=> console.log('hi')}>
                 <Image
                     source={ require('./assets/settings.png') }
                     style={{ width: 25, height: 25,paddingHorizontal: 5, }} />
-                <Text>Products</Text>
+                <Text style={styles.txt}>Products</Text>
               </TouchableOpacity>
             </View>
          </View>
@@ -183,24 +181,35 @@ class Sell extends Component{
         )
     }
 }
-export default Sell;
+
 
 var highlight = true;
-styles = {
+const styles = {
     navbox: {
-        borderTopWidth: 3,
+        borderColor: '#7BCA86',
         position: 'absolute',
         bottom:0,
         left:0,
         height: 50,
-        backgroundColor: "#FFFFFF",
+        backgroundColor: "#7BCA86",
         width:Dimensions.get('window').width,
         flexDirection: 'row',
-        justifyContent: 'space-around'
+        justifyContent: 'space-around',
+        shadowColor:'#000',
+        shadowOffset: {width: 0, height: 3},
+        shadowOpacity: 0.8,
+        elevation: 8,
     },
     txt:{
-        height: 50,
+        color: 'white',
+        fontFamily: 'SEGOEUI',
 
+    },
+    tpt:{
+      fontFamily:'leaguespartan',
+      color:'white',
+      fontSize:15,
+      padding: 3
     },
     icon1:{
         flexDirection: 'column',
@@ -208,7 +217,7 @@ styles = {
         alignItems:'center',
         // borderWidth: 2,
         borderRadius:8,
-        backgroundColor: (highlight)? 'grey':'#ffffff00'
+        backgroundColor: (highlight)? 'rgba(255,255,255,0.2)':'#ffffff00'
     },
     icon2:{
         flexDirection: 'column',
@@ -216,7 +225,7 @@ styles = {
         alignItems:'center',
         // borderWidth: 2,
         borderRadius:8,
-        backgroundColor: (!highlight)? 'grey':'#ffffff00' 
+        backgroundColor: (!highlight)? 'rgba(255,255,255,0.2)':'#ffffff00' 
     },
     img:{
         position: 'relative',
@@ -233,4 +242,24 @@ styles = {
         fontWeight: '500',
         color: '#000',
       },
+      card:{
+        borderWidth:1,
+        borderRadius:2,
+        // borderColor:'green',
+        borderColor:'#ddd',
+        borderBottomWidth: 1,
+        shadowColor:"#000",
+        shadowOffset: {width:0,height:2},
+        shadowOpacity: 0.3,
+        shadowRadius: 2,
+        elevation:3,
+        marginLeft:5,
+        marginRight:5,
+        marginTop:10,
+        flexDirection: 'column',
+        height:40
+        // paddingBottom: 5
+      }
 }
+
+export default Sell;
